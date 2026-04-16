@@ -28,6 +28,8 @@ Critical decryption logic is isolated entirely within the native layer (C++) via
 - **Objective:** Protect the master decryption sequence from JVM-based inspection.
 - **Implementation:** The master key is not hardcoded. Instead, it relies on an environment-bound key derivation sequence that validates the application's cryptographic signature at runtime. Decryption occurs exclusively in volatile memory, ensuring the plaintext secret is never written to disk.
 
+### MMD
+
 ```mermaid
 graph TD
     subgraph Layer_1 [Perimeter Defense]
