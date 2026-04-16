@@ -23,11 +23,11 @@ This assistant goes beyond simple LLM integration. It implements a local memory 
 
 The system is divided into two main specialized modules:
 
-### 1. RAG Workflow (Long-term Memory)
+### 1. RAG Workflow
 Detailed technical flow of how the assistant retrieves and processes local data to augment LLM prompts.
 > [**View RAG Documentation ↗**](./app/docs/RAG_WORKFLOW.md)
 
-### 2. Security Architecture (Night Protocol)
+### 2. Security Architecture
 A comprehensive "Defense in Depth" strategy protecting the application from static and dynamic analysis.
 > [**View Security Documentation ↗**](./app/docs/SECURITY_ARCHITECTURE.md)
 
