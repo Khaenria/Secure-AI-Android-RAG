@@ -28,5 +28,35 @@ Critical decryption logic is isolated entirely within the native layer (C++) via
 - **Objective:** Protect the master decryption sequence from JVM-based inspection.
 - **Implementation:** The master key is not hardcoded. Instead, it relies on an environment-bound key derivation sequence that validates the application's cryptographic signature at runtime. Decryption occurs exclusively in volatile memory, ensuring the plaintext secret is never written to disk.
 
+```mermaid
+graph TD
+    subgraph Layer_1 [Perimeter Defense]
+        A[External Threat / Reverse Engineering] --> B{Bytecode Analysis}
+        B -->|Static Obfuscation| C[Minification & Control Flow Flattening]
+    end
+
+    subgraph Layer_2 [Static Misdirection]
+        C --> D[Credential Harvesting Attempt]
+        D --> E[(Decoy Token Injection)]
+        E --> F[Threat diverted to monitored sinkholes]
+    end
+
+    subgraph Layer_3 [Dynamic Protection]
+        C --> G{Runtime Execution}
+        G --> H[Instrumentation & Tamper Detection]
+        H -->|Anomaly Detected| I[Gaslighting Protocol: Falsified Data Output]
+    end
+
+    subgraph Layer_4 [Core Vault]
+        G -->|Verified Environment| J[JNI Bridge to Native Layer]
+        J --> K[Environment-Bound Key Derivation]
+        K --> L[Volatile Memory Decryption]
+        L --> M[Secure API Execution]
+    end
+
+    style Layer_4 fill:#2d3436,stroke:#00b894,stroke-width:2px,color:#fff
+    style Layer_3 fill:#f5f6fa,stroke:#e1b12c,stroke-width:2px
+```
+
 ---
 *Note: Specific implementation details, cryptographic seeds, and heuristic detection methods have been redacted from this public documentation to maintain operational security (OpSec).*
