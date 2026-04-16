@@ -1,63 +1,51 @@
-# Secure AI Chat Assistant (Android & RAG Implementation)
+# Secure AI Chat Assistant (Android & RAG)
 
-A practical implementation of Generative AI in mobile environments, focusing on long-term memory and secure data handling. This project was developed to explore the intersection of Android Development and Cybersecurity.
+![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android)
+![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?logo=kotlin)
+![Security](https://img.shields.io/badge/Focus-Cybersecurity-red)
 
-##  Technical Implementation
-
-### Architecture & RAG Workflow
-
-![Diagrama de flujo del sistema](Diagra.png)
-
-###  AI & Data Context
-* **RAG Workflow:** Integrated a custom memory engine to provide the LLM with relevant historical context.
-* **Vector Similarity:** Used **Cosine Similarity** logic to compare FloatArrays (Embeddings), ensuring the most relevant memories are retrieved.
-* **API Integration:** Connected with Google’s `text-embedding-004` and `Gemini 1.5 Flash` using REST and SDKs, managing custom safety and generation settings.
-
-###  Security & Performance (Cybersecurity Focus)
-* **Native Layer (NDK/JNI):** Moved sensitive processing to C++ to practice basic obfuscation and protect app logic from easy reverse engineering.
-* **Data Persistence:** Managed local storage with **Room Database**, using DAOs and Entities to handle complex message history.
-* **Concurrency:** Used **Kotlin Coroutines** (Dispatchers.IO) to keep the UI responsive while performing background calculations.
-
-###  Android Fundamentals
-* **Modern Kotlin:** Built using Lambdas, Data Classes, and Extension Functions.
-* **Dynamic UI:** Implemented a RecyclerView with multiple ViewTypes and used **ObjectAnimator** for smooth menu transitions.
-* **Formatting:** Used `SpannableStringBuilder` for real-time text styling without relying on heavy HTML rendering.
-
-###  MMD
-
-```mermaid
-graph TD
-    %% Node styles
-    classDef user fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:white;
-    classDef frontend fill:#2196F3,stroke:#1565C0,stroke-width:2px,color:white;
-    classDef database fill:#FF9800,stroke:#EF6C00,stroke-width:2px,color:white;
-    classDef background fill:#607D8B,stroke:#37474F,stroke-width:2px,color:white;
-    classDef cloud fill:#9C27B0,stroke:#6A1B9A,stroke-width:2px,color:white;
-
-    %% Nodes
-    U((👤 User)):::user
-    UI[📱 ChatActivity / UI]:::frontend
-    DB[(🗄️ Room Database)]:::database
-    LLM[☁️ Gemini Chat API]:::cloud
-    WORKER[⚙️ Vector Synchronizer]:::background
-    EMBED[🧠 Gemini Embeddings API]:::cloud
-
-    %% PHASE 1: REAL-TIME CHAT
-    U -->|1. Sends message| UI
-    UI -->|2. Saves message immediately| DB
-    DB -->|3. Returns chat history| UI
-    UI -->|4. Sends History + Prompt| LLM
-    LLM -->|5. Returns AI response| UI
-    UI -->|6. Displays response on screen| U
-    UI -->|7. Saves AI response| DB
-
-    %% PHASE 2: LONG-TERM MEMORY
-    DB -.->|8. Detects messages without vector| WORKER
-    WORKER -.->|9. Sends clean UI text| EMBED
-    EMBED -.->|10. Returns RAG Vector FloatArray| WORKER
-    WORKER -.->|11. Updates message with its Vector| DB
-```
-
+An advanced mobile AI implementation featuring Retrieval-Augmented Generation (RAG) and high-level binary protection. This project serves as a proof-of-concept for secure, context-aware Generative AI in mobile environments.
 
 ---
-*Note: Source code is private to protect API implementation details. Walkthroughs are available for technical interviews.*
+
+##  Overview
+
+This assistant goes beyond simple LLM integration. It implements a local memory system (RAG) to provide long-term context while maintaining a hostile defense posture against reverse engineering.
+
+### Key Pillars:
+- **Intelligent Retrieval:** Local database-driven context for personalized AI interactions.
+- **Hardened Security:** Multi-layered defense (The "Nightmare Protocol") to protect sensitive API assets.
+- **Native Performance:** Optimized C++ core for cryptographic and logic-heavy operations.
+
+---
+
+## Architecture
+
+The system is divided into two main specialized modules:
+
+### 1. RAG Workflow (Long-term Memory)
+Detailed technical flow of how the assistant retrieves and processes local data to augment LLM prompts.
+> [**View RAG Documentation ↗**](./docs/RAG_WORKFLOW.md)
+
+### 2. Security Architecture (Nightmare Protocol)
+A comprehensive "Defense in Depth" strategy protecting the application from static and dynamic analysis.
+> [**View Security Documentation ↗**](./docs/SECURITY_ARCHITECTURE.md)
+
+---
+
+## Tech Stack
+
+- **Frontend:** Kotlin / Jetpack Compose
+- **Local Storage:** Room Database (SQLite)
+- **Native Core:** C++ / Android NDK / JNI
+- **AI Engine:** Google Gemini Pro API / RAG Implementation
+- **Security:** R8 Obfuscation, Anti-Debugging Heuristics, XOR Key Derivation
+
+---
+
+### Note
+This repository is a technical showcase of secure mobile architecture. For security reasons and to protect the integrity of the integrated AI services, a full production build environment is not provided.
+
+---
+## ⚖️ License
+Distributed under the MIT License. See `LICENSE` for more information.
